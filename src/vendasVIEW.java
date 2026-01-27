@@ -1,4 +1,7 @@
 
+import java.util.List;
+
+
 
  public class vendasVIEW extends javax.swing.JFrame {
     
@@ -7,7 +10,7 @@
     
     public vendasVIEW() {
         initComponents();
-       
+        listarVendas();
     }
 
     @SuppressWarnings("unchecked")
@@ -93,6 +96,28 @@
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void listarVendas() {
+
+    ProdutosDAO dao = new ProdutosDAO();
+    List<ProdutosDTO> lista = dao.listarProdutosVendidos();
+
+    javax.swing.table.DefaultTableModel model =
+            (javax.swing.table.DefaultTableModel) tblVendas.getModel();
+
+    model.setRowCount(0); 
+
+    for (ProdutosDTO produto : lista) {
+        model.addRow(new Object[]{
+            produto.getId(),
+            produto.getNome(),
+            produto.getValor(),
+            produto.getStatus()
+        });
+    }
+}
+    
+    
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
